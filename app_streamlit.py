@@ -155,7 +155,7 @@ def display_message(message: Dict[str, Any], is_user: bool = False):
     </div>
     """, unsafe_allow_html=True)
 
-    # ✅ Hiển thị phần citations (nếu có)
+    #  Hiển thị phần citations (nếu có)
     citations = message.get("citations", [])
     if citations:
         st.markdown(f"<div style='margin-top:10px; font-size: 90%;'><strong>🔗 Tham khảo:</strong></div>", unsafe_allow_html=True)
@@ -175,7 +175,7 @@ def display_message(message: Dict[str, Any], is_user: bool = False):
 def display_chat_history():
     """Display chat history"""
     if not st.session_state.chat_history:
-        st.info("💬 Chưa có tin nhắn nào. Hãy bắt đầu cuộc trò chuyện!")
+        st.info(" Chưa có tin nhắn nào. Hãy bắt đầu cuộc trò chuyện!")
         return
 
     for message in st.session_state.chat_history:
@@ -228,12 +228,12 @@ def process_user_query(query: str):
 
 def sidebar():
     """Display sidebar with chat management and data management"""
-    st.sidebar.title("🤖 BachKhoa Support Chatbot")
+    st.sidebar.title(" BachKhoa Support Chatbot")
 
     # Data status section removed from sidebar
 
     # Chat management
-    st.sidebar.header("💬 Quản lý Chat")
+    st.sidebar.header(" Quản lý Chat")
 
     if st.sidebar.button("➕ Chat mới", key="new_chat"):
         create_new_chat()
@@ -244,16 +244,16 @@ def sidebar():
         st.sidebar.subheader("📝 Lịch sử Chat")
         for chat_id, chat_data in st.session_state.chat_sessions.items():
             is_active = chat_id == st.session_state.current_chat_id
-            button_text = f"{'📌' if is_active else '💬'} {chat_data['title']}"
+            button_text = f"{'' if is_active else ''} {chat_data['title']}"
 
             if st.sidebar.button(button_text, key=f"load_{chat_id}"):
                 load_chat_session(chat_id)
                 st.rerun()
 
     # Memory management
-    st.sidebar.header("🧠 Quản lý bộ nhớ")
+    st.sidebar.header(" Quản lý bộ nhớ")
 
-    if st.sidebar.button("🗑️ Xóa bộ nhớ", key="clear_memory"):
+    if st.sidebar.button("🗑 Xóa bộ nhớ", key="clear_memory"):
         try:
             if st.session_state.chatbot_ready:
                 chatbot = get_chatbot_instance()
@@ -263,7 +263,7 @@ def sidebar():
             st.sidebar.error(f"Lỗi khi xóa bộ nhớ: {e}")
 
     # Data management
-    st.sidebar.header("📁 Quản lý dữ liệu")
+    st.sidebar.header(" Quản lý dữ liệu")
 
     with st.sidebar.expander("🔧 Cài đặt nâng cao"):
         st.write("**Thông tin kết nối:**")
@@ -271,7 +271,7 @@ def sidebar():
         st.write(f"- Milvus Port: {os.getenv('MILVUS_PORT', '19530')}")
         st.write(f"- Collection: {os.getenv('MILVUS_COLLECTION', 'student_support_chatbot')}")
 
-        if st.button("🔄 Tải lại ứng dụng", key="reload_app"):
+        if st.button(" Tải lại ứng dụng", key="reload_app"):
             st.rerun()
 
 
@@ -295,7 +295,7 @@ def main():
 
     # Main chat interface
     if not st.session_state.chatbot_ready:
-        st.error("⚠️ Chatbot chưa sẵn sàng. Vui lòng kiểm tra kết nối database và dữ liệu.")
+        st.error(" Chatbot chưa sẵn sàng. Vui lòng kiểm tra kết nối database và dữ liệu.")
         st.info("""
         **Hướng dẫn khắc phục:**
         1. Đảm bảo Milvus server đang chạy
@@ -309,7 +309,7 @@ def main():
         create_new_chat()
 
     # Chat interface
-    st.header("💬 Trò chuyện")
+    st.header(" Trò chuyện")
 
     # Display chat history
     chat_container = st.container()
@@ -343,7 +343,7 @@ def main():
 
     # Show processing status
     if st.session_state.processing_query:
-        st.info("🤔 Đang suy nghĩ...")
+        st.info(" Đang suy nghĩ...")
 
     # Footer
     st.markdown("---")

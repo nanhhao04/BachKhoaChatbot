@@ -22,13 +22,17 @@ logger = logging.getLogger(__name__)
 # Page config
 st.set_page_config(
     page_title="BachKhoa Support Chatbot",
-    page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
 )
 
 # Custom CSS
+
 st.markdown("""
+    <div style="text-align: center; margin-bottom: 20px;">
+        <img src="pics/bachkhoa.jpg" width="70%" alt="Bach Khoa Logo">
+        <h2 style="margin-top: 10px;">BachKhoa Support Chatbot</h2>
+    </div>
 <style>
     .chat-message {
         padding: 1rem;
@@ -70,8 +74,10 @@ st.markdown("""
     .stButton > button {
         width: 100%;
     }
+    
 </style>
 """, unsafe_allow_html=True)
+
 
 
 # Initialize session state
@@ -143,7 +149,7 @@ def save_current_chat():
 def display_message(message: Dict[str, Any], is_user: bool = False):
     """Hiển thị tin nhắn trò chuyện, kèm trích dẫn nếu có"""
     css_class = "user-message" if is_user else "bot-message"
-    sender = "👤 Bạn" if is_user else "🤖 Chatbot"
+    sender = "Bạn" if is_user else "Chatbot"
 
     # Hiển thị phần nội dung chính
     st.markdown(f"""
@@ -158,7 +164,7 @@ def display_message(message: Dict[str, Any], is_user: bool = False):
     #  Hiển thị phần citations (nếu có)
     citations = message.get("citations", [])
     if citations:
-        st.markdown(f"<div style='margin-top:10px; font-size: 90%;'><strong>🔗 Tham khảo:</strong></div>", unsafe_allow_html=True)
+        st.markdown(f"<div style='margin-top:10px; font-size: 90%;'><strong> Tham khảo:</strong></div>", unsafe_allow_html=True)
 
         for i, citation in enumerate(citations, start=1):
             text = citation.get("text", "")[:200] + "..."  # rút gọn
@@ -241,7 +247,7 @@ def sidebar():
 
     # Chat history
     if st.session_state.chat_sessions:
-        st.sidebar.subheader("📝 Lịch sử Chat")
+        st.sidebar.subheader("Lịch sử Chat")
         for chat_id, chat_data in st.session_state.chat_sessions.items():
             is_active = chat_id == st.session_state.current_chat_id
             button_text = f"{'' if is_active else ''} {chat_data['title']}"
@@ -265,7 +271,7 @@ def sidebar():
     # Data management
     st.sidebar.header(" Quản lý dữ liệu")
 
-    with st.sidebar.expander("🔧 Cài đặt nâng cao"):
+    with st.sidebar.expander("Cài đặt nâng cao"):
         st.write("**Thông tin kết nối:**")
         st.write(f"- Milvus Host: {os.getenv('MILVUS_HOST', 'localhost')}")
         st.write(f"- Milvus Port: {os.getenv('MILVUS_PORT', '19530')}")
@@ -288,7 +294,7 @@ def main():
     sidebar()
 
     # Main content
-    st.title("🎓 BachKhoa Support Chatbot")
+    st.title(" BachKhoa Support Chatbot")
     st.markdown("*Hệ thống hỗ trợ sinh viên Bách Khoa thông minh với RAG (Retrieval-Augmented Generation)*")
 
     # Data status display removed completely
@@ -331,7 +337,7 @@ def main():
 
         with col2:
             submit_button = st.form_submit_button(
-                "Gửi 📤",
+                "Gửi ",
                 disabled=st.session_state.processing_query
             )
 
